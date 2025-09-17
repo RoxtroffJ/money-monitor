@@ -1,6 +1,6 @@
 use std::fmt::Display;
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, PartialOrd)]
 /// An amount of money
 pub struct Amount {
     /// Amount in euros
@@ -9,7 +9,7 @@ pub struct Amount {
 
 impl Amount {
     /// Creates an amount from a value in euros.
-    pub fn euro(amount: f64) -> Self {
+    pub fn new(amount: f64) -> Self {
         Self { amount }
     }
 
@@ -18,7 +18,7 @@ impl Amount {
     /// The input string must be just a float (no €) with a . as decimal separator.
     pub fn parse_euro<S: AsRef<str>>(string: S) -> Option<Self> {
         let amount = string.as_ref().parse().ok()?;
-        Some(Self::euro(amount))
+        Some(Self::new(amount))
     }
 }
 
