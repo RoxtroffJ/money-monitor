@@ -173,7 +173,7 @@ where
 /// # Example
 /// ```
 /// use std::io::Cursor;
-/// use money_monitor::units::{Date, Month, Amount};
+/// use money_monitor::units::{Date, Month, Amount, EURO};
 /// use money_monitor::import::{from_boursobank_csv, BankLine};
 ///
 /// let csv = Cursor::new(
@@ -189,11 +189,11 @@ where
 ///     "FOO1",
 ///     vec!["Bâr", "Bâr"],
 ///     "BAZ",
-///     Amount::new(-101.00),
+///     Amount::new(-101.00, &EURO),
 ///     "",
 ///     42,
 ///     "BoursoBank",
-///     Amount::new(1057.24)
+///     Amount::new(1057.24, &EURO)
 /// );
 /// let line2 = BankLine::new(
 ///     Date::new(26, Month::August, 2025).unwrap(),
@@ -201,11 +201,11 @@ where
 ///     "FOO2",
 ///     vec!["Bäär", "Bär"],
 ///     "baz",
-///     Amount::new(-12.50),
+///     Amount::new(-12.50, &EURO),
 ///     "",
 ///     42,
 ///     "BoursoBank",
-///     Amount::new(1057.24)
+///     Amount::new(1057.24, &EURO)
 /// );
 ///
 /// assert_eq!(Some(line1), iter.next());
@@ -227,6 +227,6 @@ pub fn from_boursobank_csv<R: Read>(reader: R) -> impl Iterator<Item = BankLine>
         9,
         10,
         |s| Date::from_yyyy_mm_dd(s, '-'),
-        |s| Amount::parse_euro(s.replace(',', ".")),
+        |s| Amount::parse_euro(&s.replace(',', ".")).ok(),
     )
 }
