@@ -6,5 +6,3 @@ edition = "2024"
 [dependencies]
 csv = "1.4.0"
 rust_units = {git = "https://github.com/RoxtroffJ/rust_units.git", branch = "0.1"}
-typenum = "1.20.1"
-extended-typenum = {git = "https://github.com/RoxtroffJ/extended-typenum.git"}

@@ -65,9 +65,7 @@ name = "money-monitor"
 version = "0.1.0"
 dependencies = [
  "csv",
- "extended-typenum",
  "rust_units",
- "typenum",
 ]
 
 [[package]]
@@ -100,7 +98,7 @@ dependencies = [
 [[package]]
 name = "rust_units"
 version = "0.1.0"
-source = "git+https://github.com/RoxtroffJ/rust_units.git?branch=0.1#8d925d81aef0b71ad3647d4ddf8b7dd2ee7ad42b"
+source = "git+https://github.com/RoxtroffJ/rust_units.git?branch=0.1#c0a4069e9206fa3a24130b733ff3fe014f0b4eaf"
 dependencies = [
  "derive-where",
  "extended-typenum",

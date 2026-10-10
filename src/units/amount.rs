@@ -2,9 +2,8 @@
 
 use std::num::ParseFloatError;
 
-use extended_typenum::rational;
+use rust_units::extended_typenum::{rational, P1, Z0};
 use rust_units::{Quantity, Unit, si_system::units::{SIPropUnit, SimpleSIPropUnit}};
-use typenum::{P1, Z0};
 
 use crate::units::Money;
 
