@@ -5,4 +5,5 @@ edition = "2024"
 
 [dependencies]
 csv = "1.4.0"
+derive_more = {"version" = "2.1.1", features = ["full"]}
 rust_units = {git = "https://github.com/RoxtroffJ/rust_units.git", branch = "0.1"}

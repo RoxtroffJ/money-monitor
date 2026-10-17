@@ -1,6 +1,6 @@
 //! Helps to import bank files.
 
-use std::io::Read;
+use std::{fmt::Display, io::Read};
 
 use crate::units::{Amount, Date};
 
@@ -106,6 +106,25 @@ impl BankLine {
     }
 }
 
+impl Display for BankLine {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "op: {}, val: {}, {}, cat: {:?}, sr: {}, {}, {}, acc_nb: {}, acc_lab: {}, bal: {}",
+            self.date_op,
+            self.date_val,
+            self.label,
+            self.category,
+            self.sender_reciever,
+            self.amount,
+            self.comment,
+            self.account_number,
+            self.account_label,
+            self.account_balance
+        )
+    }
+}
+
 /// Parses a csv when given a separator, index of column of each field, and parse functions.
 ///
 /// Returns an iterator over the valid lines
@@ -163,7 +182,13 @@ where
                 account_balance,
             ))
         })
-        .filter_map(|x| x)
+        .enumerate()
+        .filter_map(|(i, x)| {
+            if let None = x {
+                eprintln!("Warning: Could not parse line {} of csv file", i + 2);
+            }
+            x
+        })
 }
 
 /// Reads a csv from Boursobank.
@@ -227,6 +252,6 @@ pub fn from_boursobank_csv<R: Read>(reader: R) -> impl Iterator<Item = BankLine>
         9,
         10,
         |s| Date::from_yyyy_mm_dd(s, '-'),
-        |s| Amount::parse_euro(&s.replace(',', ".")).ok(),
+        |s| Amount::parse_euro(&s).ok(),
     )
 }
